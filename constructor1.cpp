@@ -6,7 +6,7 @@ class vector3{
 public:
 	double elem[3];
 	vector3();	//コンストラクタ
-	void set( double e1, double e2, double e3 );
+	void set( const double e1, const double e2, const double e3 );
 	void show();	
 };
 
@@ -26,7 +26,7 @@ vector3::vector3(){
 	cout << "vector3::constructor" << endl;	//コンストラクタとしての機能として必要ないが呼び出されたことを確認するため
 }
 
-void vector3::set( double e1, double e2, double e3 ){
+void vector3::set( const double e1, const double e2, const double e3 ){
 	elem[0] = e1;
 	elem[1] = e2;
 	elem[2] = e3;

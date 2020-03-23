@@ -6,8 +6,8 @@ class vector3{
 public:
 	double elem[3];
 	vector3();	//コンストラクタ
-	vector3( double val ); //オーバーロードされたコンストラクタ2
-	void set( double e1, double e2, double e3 );
+	vector3( const double val ); //オーバーロードされたコンストラクタ2
+	void set( const double e1, const double e2, const double e3 );
 	void show();	
 };
 
@@ -30,12 +30,12 @@ vector3::vector3(){
 }
 
 //コンストラクタ2の定義
-vector3::vector3( double val ){
+vector3::vector3( const double val ){
 	elem[0] = elem[1] = elem[2] = val;	//要素をvalで初期化
 	cout << "vector3::constructor2" << endl;
 }
 
-void vector3::set( double e1, double e2, double e3 ){
+void vector3::set( const double e1, const double e2, const double e3 ){
 	elem[0] = e1;
 	elem[1] = e2;
 	elem[2] = e3;

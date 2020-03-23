@@ -6,11 +6,11 @@ class vector3{
 public:
 	double elem[3];
 	vector3();	//コンストラクタ
-	vector3( double val ); //オーバーロードされたコンストラクタ2
-	vector3( vector3& vec );	//コピーコンストラクタ
+	vector3( const double val ); //オーバーロードされたコンストラクタ2
+	vector3( const vector3& vec );	//コピーコンストラクタ
 	~vector3(){ cout << "vector3::destructor(" << this << ")" << endl; } //デストラクタ
-	vector3& operator=( vector3& vec );	//代入演算子のオーバーロード
-	void set( double e1, double e2, double e3 );
+	vector3& operator=( const vector3& vec );	//代入演算子のオーバーロード
+	void set( const double e1, const double e2, const double e3 );
 	void show();
 };
 
@@ -29,25 +29,25 @@ vector3::vector3(){
 }
 
 //コンストラクタ2の定義
-vector3::vector3( double val ){
+vector3::vector3( const double val ){
 	elem[0] = elem[1] = elem[2] = val;	//要素をvalで初期化
 	cout << "vector3::constructor2(" << this << ")" << endl;
 }
 
 //コピーコンストラクタ
-vector3::vector3( vector3& vec ){
+vector3::vector3( const vector3& vec ){
 	for( int i=0; i< 3; i++ ) elem[i] = vec.elem[i];
 	cout << "vector3::copy(" << &vec << ") -> (" << this << ")" << endl;
 }
 
 //代入演算子のオーバーロード
-vector3& vector3::operator=( vector3& vec ){
+vector3& vector3::operator=( const vector3& vec ){
 	for( int i=0; i< 3; i++ ) elem[i] = vec.elem[i];
 	cout << "vector3::=(" << &vec << ") -> (" << this << ")" << endl;
 	return *this;
 }
 
-void vector3::set( double e1, double e2, double e3 ){
+void vector3::set( const double e1, const double e2, const double e3 ){
 	elem[0] = e1;
 	elem[1] = e2;
 	elem[2] = e3;

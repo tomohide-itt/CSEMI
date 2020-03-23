@@ -6,7 +6,7 @@ using namespace std;
 class vector3{
 public:
 	double elem[3];
-	void set( double e1, double e2, double e3 );
+	void set( const double e1, const double e2, const double e3 );
 	void show();	
 };
 
@@ -23,7 +23,7 @@ int main(){
 	return 0;
 }
 
-void vector3::set( double e1, double e2, double e3 ){
+void vector3::set( const double e1, const double e2, const double e3 ){
 	elem[0] = e1;
 	elem[1] = e2;
 	elem[2] = e3;

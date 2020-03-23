@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 using namespace std;
 
 class vector3{
@@ -7,18 +8,22 @@ public:
 	double elem[3];
 	vector3();	//コンストラクタ
 	vector3( const double val ); //オーバーロードされたコンストラクタ2
+	vector3( const vector3& vec );	//コピーコンストラクタ
 	~vector3(){ cout << "vector3::destructor(" << this << ")" << endl; } //デストラクタ
 	vector3& operator=( const vector3& vec );	//代入演算子のオーバーロード
 	void set( const double e1, const double e2, const double e3 );
 	void show();
+	double operator[]( const int i ) const;
+	double& operator[]( const int i );
 };
 
-int main(){
-	vector3 vec1( 3.0 );
-	vector3 vec2( 0.0 );
-	vec2 = vec1;
-	vec2.show();
+vector3 operator+( const vector3& vec1, const vector3& vec2 );
 
+int main(){
+	vector3 vec1;
+	vec1.set( 1.0, 2.0, 3.0 );
+	vec1[0] = 4.0;	//vec1の0番目要素に4.0を代入
+	cout << vec1[2] << endl;	//vec1の2番目の要素を出力
 	return 0;
 }
 
@@ -32,6 +37,12 @@ vector3::vector3(){
 vector3::vector3( const double val ){
 	elem[0] = elem[1] = elem[2] = val;	//要素をvalで初期化
 	cout << "vector3::constructor2(" << this << ")" << endl;
+}
+
+//コピーコンストラクタ
+vector3::vector3( const vector3& vec ){
+	for( int i=0; i< 3; i++ ) elem[i] = vec.elem[i];
+	cout << "vector3::copy(" << &vec << ") -> (" << this << ")" << endl;
 }
 
 //代入演算子のオーバーロード
@@ -52,4 +63,29 @@ void vector3::show(){
 	for( int i=0; i< 3; i++ ){
 		cout << setw(5) << i << ": " << setw(12) << elem[i] << endl;
 	}
+}
+
+//[]を使った要素の値の取得
+double vector3::operator[]( const int i ) const{
+	if( i < 0 || i >= 3 ){
+		cout << "vector3::[] : Access Violation (index = " << i << " )" << endl;
+	}
+	return elem[i];
+}
+
+//[]を使った要素の値の設定
+double& vector3::operator[]( const int i ){
+	if( i < 0 || i >= 3 ){
+		cout << "vector3::[] : Access Violation (index = " << i << " )" << endl;
+	}
+	return elem[i];
+}
+
+//+演算子のオーバーロード
+vector3 operator+( const vector3& vec1, const vector3& vec2 ){
+	vector3 ret;
+	for( int i=0; i< 3; i++ ){
+		ret.elem[i] = vec1.elem[i] + vec2.elem[i];
+	}
+	return ret;
 }

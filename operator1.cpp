@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 using namespace std;
 
 class vector3{
@@ -7,17 +8,21 @@ public:
 	double elem[3];
 	vector3();	//コンストラクタ
 	vector3( const double val ); //オーバーロードされたコンストラクタ2
+	vector3( const vector3& vec );	//コピーコンストラクタ
 	~vector3(){ cout << "vector3::destructor(" << this << ")" << endl; } //デストラクタ
+	vector3& operator=( const vector3& vec );	//代入演算子のオーバーロード
 	void set( const double e1, const double e2, const double e3 );
-	void show();	
+	void show();
 };
 
-int main(){
-	vector3 vec1( 3.0 );
-	vector3 vec2;
-	vec2 = vec1;
-	vec2.show();
+vector3 operator+( const vector3& vec1, const vector3& vec2 );
 
+int main(){
+	vector3 vec1, vec2, vec3;
+	vec1.set( 1, 2, 3 );
+	vec2.set( 4, 5, 6 );
+	vec3 = vec1 + vec2;
+	vec3.show();
 	return 0;
 }
 
@@ -33,6 +38,19 @@ vector3::vector3( const double val ){
 	cout << "vector3::constructor2(" << this << ")" << endl;
 }
 
+//コピーコンストラクタ
+vector3::vector3( const vector3& vec ){
+	for( int i=0; i< 3; i++ ) elem[i] = vec.elem[i];
+	cout << "vector3::copy(" << &vec << ") -> (" << this << ")" << endl;
+}
+
+//代入演算子のオーバーロード
+vector3& vector3::operator=( const vector3& vec ){
+	for( int i=0; i< 3; i++ ) elem[i] = vec.elem[i];
+	cout << "vector3::=(" << &vec << ") -> (" << this << ")" << endl;
+	return *this;
+}
+
 void vector3::set( const double e1, const double e2, const double e3 ){
 	elem[0] = e1;
 	elem[1] = e2;
@@ -44,4 +62,13 @@ void vector3::show(){
 	for( int i=0; i< 3; i++ ){
 		cout << setw(5) << i << ": " << setw(12) << elem[i] << endl;
 	}
+}
+
+//+演算子のオーバーロード
+vector3 operator+( const vector3& vec1, const vector3& vec2 ){
+	vector3 ret;
+	for( int i=0; i< 3; i++ ){
+		ret.elem[i] = vec1.elem[i] + vec2.elem[i];
+	}
+	return ret;
 }
