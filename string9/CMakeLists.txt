@@ -1,0 +1,6 @@
+cmake_minimum_required( VERSION 3.16 )
+project( modules CXX )
+add_subdirectory( tensor )
+add_subdirectory( file )
+add_executable( string9 main.cpp )
+target_link_libraries( string9 tensor file )
